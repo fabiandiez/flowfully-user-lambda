@@ -35,3 +35,16 @@ out/
 
 ### VS Code ###
 .vscode/
+
+### Mac ###
+.DS_Store
+
+### Terraform ###
+terraform.tfstate
+terraform.tfstate.backup
+localstack_providers_override.tf
+.terraform.lock.hcl
+.terraform/
+
+### Artifacts ###
+lambda.zip

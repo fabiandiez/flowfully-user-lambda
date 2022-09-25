@@ -1,5 +1,6 @@
 package tech.fdiez.flowfullybackend
 
+import com.amazonaws.services.lambda.runtime.events.SQSEvent
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
@@ -8,8 +9,13 @@ import org.springframework.context.annotation.Bean
 class FlowfullyBackendApplication {
 
     @Bean
-    fun greet(): (String) -> String {
-        return { input -> "Hello from kotlin $input" }
+    fun getUser(): (SQSEvent) -> String {
+        return { input ->
+            for (record in input.records) {
+                println(record.body)
+            }
+            "Hello from kotlin $input"
+        }
     }
 
 }

@@ -24,13 +24,16 @@ dependencies {
 	implementation("com.amazonaws:aws-lambda-java-events:3.11.0")
 
 	implementation("org.springframework.cloud:spring-cloud-function-web:3.2.7")
-	implementation("org.springframework.boot:spring-boot-starter-data-mongodb:2.7.4")
+//	implementation("org.springframework.boot:spring-boot-starter-data-mongodb:2.7.4")
 	implementation("org.springframework.cloud:spring-cloud-function-adapter-aws:3.2.7")
 	implementation("org.springframework.boot:spring-boot-starter-webflux:2.7.3")
 
 	implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.13.4")
 
 	implementation("io.projectreactor.kotlin:reactor-kotlin-extensions")
+
+	// Remove this dependency once spring fixes this
+	implementation("org.yaml:snakeyaml:1.31")
 
 	implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor")
 	implementation("org.jetbrains.kotlin:kotlin-reflect:1.7.10")
@@ -48,7 +51,7 @@ dependencyManagement {
 tasks.withType<KotlinCompile> {
 	kotlinOptions {
 		freeCompilerArgs = listOf("-Xjsr305=strict")
-		jvmTarget = "17"
+		jvmTarget = "11"
 	}
 }
 
@@ -63,12 +66,13 @@ tasks.withType<Jar> {
 }
 
 tasks.assemble {
-	dependsOn("shadowJar")
+	dependsOn("shadowJar") // TODO: Use thin jar in the future
 }
 
 
 tasks.withType<ShadowJar> {
 	archiveFileName.set("flowfullyBackendApplication.jar")
+
 	dependencies {
 		exclude("org.springframework.cloud:spring-cloud-function-web")
 	}
