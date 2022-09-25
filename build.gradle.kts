@@ -6,6 +6,7 @@ plugins {
 	id("org.springframework.boot") version "2.7.4"
 	id("io.spring.dependency-management") version "1.0.14.RELEASE"
 	id("com.github.johnrengelman.shadow") version "7.1.2"
+	id("org.springframework.boot.experimental.thin-launcher") version "1.0.28.RELEASE"
 
 	kotlin("jvm") version "1.6.21"
 	kotlin("plugin.spring") version "1.6.21"
@@ -66,7 +67,7 @@ tasks.withType<Jar> {
 }
 
 tasks.assemble {
-	dependsOn("shadowJar") // TODO: Use thin jar in the future
+	dependsOn("shadowJar", "thinJar")
 }
 
 
