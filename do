@@ -19,6 +19,11 @@ set -eo pipefail
 
 export AWS_REGION="eu-central-1"
 export LOCALSTACK_ENDPOINT="http://localhost:4566"
+export INCOMING_QUEUE_URL="${LOCALSTACK_ENDPOINT}/local-flowfully_backend-incoming_queue"
+export LAMBDA_FUNCTION_NAME="local-flowfully_backend_lambda"
+
+# See https://github.com/hashicorp/terraform-provider-aws/issues/20274
+export GODEBUG=asyncpreemptoff=1
 
 function start-mocks() {
   docker rm -f localstack_main || true
@@ -43,6 +48,14 @@ function start() {
   start-mocks
   deploy-app
   start-app
+}
+
+function send-message() {
+  __aws sqs send-message --queue-url $INCOMING_QUEUE_URL --message-body "$1"
+}
+
+function lambda-logs() {
+  __aws logs tail /aws/lambda/$LAMBDA_FUNCTION_NAME --follow
 }
 
 function __aws() {

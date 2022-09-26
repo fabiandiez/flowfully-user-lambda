@@ -1,10 +1,19 @@
+variable "flowfully_backend-lambda_name" {
+  default = "local-flowfully_backend_lambda"
+}
+
 resource "aws_lambda_function" "flowfully_backend" {
-  function_name = "local-flowfully_backend_lambda"
-  filename      = "${path.module}/../tmp/lambda.zip"
+  function_name    = var.flowfully_backend-lambda_name
+  filename         = "${path.module}/../tmp/lambda.zip"
   source_code_hash = filebase64sha256("${path.module}/../tmp/lambda.zip")
-  handler       = "org.springframework.cloud.function.adapter.aws.FunctionInvoker"
-  runtime       = "java11"
-  role          = aws_iam_role.flowfully_backend.arn
+  handler          = "org.springframework.cloud.function.adapter.aws.FunctionInvoker"
+  runtime          = "java11"
+  role             = aws_iam_role.flowfully_backend.arn
+  timeout = 30
+
+  depends_on = [
+    aws_cloudwatch_log_group.flowfully_backend
+  ]
 }
 
 resource "aws_iam_role" "flowfully_backend" {
@@ -33,4 +42,9 @@ resource "aws_iam_role_policy_attachment" "flowfully_backend" {
 resource "aws_lambda_event_source_mapping" "lambda_sqs_subscription" {
   event_source_arn = aws_sqs_queue.flowfully_backend-incoming_queue.arn
   function_name    = aws_lambda_function.flowfully_backend.arn
+}
+
+resource "aws_cloudwatch_log_group" "flowfully_backend" {
+  name              = "/aws/lambda/${var.flowfully_backend-lambda_name}"
+  retention_in_days = 14
 }

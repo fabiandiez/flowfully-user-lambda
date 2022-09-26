@@ -12,7 +12,7 @@ rm -rf "${BUILD_DIR}"
 mkdir -p "${ZIP_FOLDER}"
 mkdir -p "${BUILD_DIR}"
 
-./gradlew clean test
+#./gradlew clean test
 ./gradlew assemble
 
 pushd "${PROJECT_ROOT}" > /dev/null
