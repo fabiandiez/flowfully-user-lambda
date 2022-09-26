@@ -2,3 +2,7 @@ spring:
   cloud:
     function:
       definition: handle
+  data:
+    mongodb:
+      auto-index-creation: true
+      uri: mongodb://localhost:27017/flowfully-db # TODO: Use actual DB URI

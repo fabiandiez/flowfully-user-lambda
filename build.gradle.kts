@@ -29,8 +29,8 @@ dependencies {
     implementation("com.amazonaws:aws-lambda-java-events:3.11.0")
 
     implementation("org.springframework.cloud:spring-cloud-function-web:${springCloudVersion}")
-//	implementation("org.springframework.boot:spring-boot-starter-data-mongodb:2.7.4")
     implementation("org.springframework.cloud:spring-cloud-function-adapter-aws:${springCloudVersion}")
+    implementation("org.springframework.boot:spring-boot-starter-data-mongodb:${springBootVersion}")
     implementation("org.springframework.boot:spring-boot-starter-webflux:${springBootVersion}")
     implementation("org.springframework.boot:spring-boot-starter-validation:${springBootVersion}")
 
@@ -40,7 +40,7 @@ dependencies {
 
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.0")
 
-    // Remove this dependency once spring fixes this
+    // TODO: Remove this dependency once spring fixes this
     implementation("org.yaml:snakeyaml:1.32")
 
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-reactor:1.6.4")

@@ -21,13 +21,28 @@ export AWS_REGION="eu-central-1"
 export LOCALSTACK_ENDPOINT="http://localhost:4566"
 export INCOMING_QUEUE_URL="${LOCALSTACK_ENDPOINT}/local-flowfully_backend-incoming_queue"
 export LAMBDA_FUNCTION_NAME="local-flowfully_backend_lambda"
+export DB_NAME="local-flowfully_db"
+export LAMBDA_DOCKER_NETWORK="flowfully-network"
 
 # See https://github.com/hashicorp/terraform-provider-aws/issues/20274
 export GODEBUG=asyncpreemptoff=1
 
+function start-db() {
+  docker run -p 27017:27017 --network $LAMBDA_DOCKER_NETWORK --name $DB_NAME -d mongo:latest
+}
+
+function stop-db() {
+  (docker stop $DB_NAME && docker rm $DB_NAME) || true > /dev/null
+}
+
 function start-mocks() {
-  docker rm -f localstack_main || true
+  start-db
   localstack start --detached
+}
+
+function stop-mocks() {
+  localstack stop > /dev/null || true
+  stop-db
 }
 
 function build-app() {
@@ -36,6 +51,13 @@ function build-app() {
 
 function deploy-app() {
   cd terraform/local
+  tflocal apply -auto-approve
+}
+
+function redeploy-app() {
+  build-app
+  cd terraform/local
+  tflocal destroy -auto-approve
   tflocal apply -auto-approve
 }
 
@@ -55,7 +77,7 @@ function send-message() {
 }
 
 function lambda-logs() {
-  __aws logs tail /aws/lambda/$LAMBDA_FUNCTION_NAME --follow
+  __aws logs tail "/aws/lambda/$LAMBDA_FUNCTION_NAME" --follow
 }
 
 function __aws() {

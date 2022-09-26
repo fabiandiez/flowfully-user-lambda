@@ -47,4 +47,4 @@ localstack_providers_override.tf
 .terraform/
 
 ### Artifacts ###
-lambda.zip
+tmp/

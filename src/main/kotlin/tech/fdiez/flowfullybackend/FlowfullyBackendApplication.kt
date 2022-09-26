@@ -8,6 +8,7 @@ import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.context.annotation.Bean
 import tech.fdiez.flowfullybackend.event.BaseEvent
+import tech.fdiez.flowfullybackend.service.UserService
 
 private val logger = KotlinLogging.logger { }
 
@@ -17,15 +18,15 @@ class FlowfullyBackendApplication {
     @Bean
     fun handle(
         objectMapper: ObjectMapper,
+        userService: UserService
     ): (SQSEvent) -> SQSBatchResponse {
         val errors = mutableListOf<SQSBatchResponse.BatchItemFailure>()
         return { sqsEvent ->
             sqsEvent.records.forEach { sqsMessage ->
                 try {
                     val event = objectMapper.readValue<BaseEvent>(sqsMessage.body)
-                    val flowfullyEvent = event.convert()
-                    logger.info { "Received event: $flowfullyEvent" }
-
+                    logger.info { "Received event: $event" }
+                    userService.handle(event)
                 } catch (e: Exception) {
                     logger.error(e) { "Error processing event: ${sqsMessage.body}" }
                     errors.add(SQSBatchResponse.BatchItemFailure(sqsMessage.messageId))

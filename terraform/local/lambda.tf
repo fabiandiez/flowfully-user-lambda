@@ -9,7 +9,13 @@ resource "aws_lambda_function" "flowfully_backend" {
   handler          = "org.springframework.cloud.function.adapter.aws.FunctionInvoker"
   runtime          = "java11"
   role             = aws_iam_role.flowfully_backend.arn
-  timeout = 30
+  timeout          = 30
+
+  environment {
+    variables = {
+      SPRING_PROFILES_ACTIVE = "local"
+    }
+  }
 
   depends_on = [
     aws_cloudwatch_log_group.flowfully_backend
