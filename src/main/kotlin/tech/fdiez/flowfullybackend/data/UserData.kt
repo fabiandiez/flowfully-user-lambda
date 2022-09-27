@@ -2,11 +2,13 @@ package tech.fdiez.flowfullybackend.data
 
 
 import com.bol.secure.Encrypted
+import org.springframework.data.annotation.CreatedDate
 import org.springframework.data.annotation.Id
 import org.springframework.data.mongodb.core.mapping.Document
 import org.springframework.data.mongodb.core.index.Indexed
 
 import java.time.Instant
+import java.util.Date
 
 @Document(collection = "users")
 data class UserData(
@@ -22,5 +24,6 @@ data class UserData(
 
     var todoistUserId: String,
 
-    val createdAt: Instant = Instant.now(),
-)
+    @CreatedDate val createdAt: Date = Date.from(Instant.now()),
+
+    )

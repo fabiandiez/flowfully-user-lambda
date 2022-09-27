@@ -79,6 +79,22 @@ tasks.assemble {
     dependsOn("shadowJar", "thinJar")
 }
 
+tasks.build {
+    dependsOn("thinPom")
+}
+
+tasks.bootRun {
+    dependsOn("thinPom")
+}
+
+tasks.compileTestKotlin {
+    dependsOn("thinPom")
+}
+
+tasks.bootRunMainClassName {
+    dependsOn("thinPom")
+}
+
 
 tasks.withType<ShadowJar> {
     archiveFileName.set("flowfullyBackendApplication.jar")

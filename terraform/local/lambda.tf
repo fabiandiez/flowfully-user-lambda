@@ -15,6 +15,7 @@ resource "aws_lambda_function" "flowfully_backend" {
     variables = {
       SPRING_PROFILES_ACTIVE = "local"
       MONGODB_ENCRYPTION_KEY = data.aws_secretsmanager_secret_version.mongodb_encryption_key.secret_string
+      MONGODB_HOSTNAME       = "local-flowfully_db" // TODO: Use actual hostname in live
     }
   }
 
@@ -44,11 +45,6 @@ resource "aws_iam_role" "flowfully_backend" {
 resource "aws_iam_role_policy_attachment" "flowfully_backend" {
   role       = aws_iam_role.flowfully_backend.name
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
-}
-
-resource "aws_lambda_event_source_mapping" "lambda_sqs_subscription" {
-  event_source_arn = aws_sqs_queue.flowfully_backend-incoming_queue.arn
-  function_name    = aws_lambda_function.flowfully_backend.arn
 }
 
 resource "aws_cloudwatch_log_group" "flowfully_backend" {

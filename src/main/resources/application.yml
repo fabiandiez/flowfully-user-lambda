@@ -1,7 +1,4 @@
 spring:
-  cloud:
-    function:
-      definition: handle
   data:
     mongodb:
       auto-index-creation: true

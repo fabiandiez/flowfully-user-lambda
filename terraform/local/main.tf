@@ -8,7 +8,8 @@ provider "aws" {
   skip_requesting_account_id  = true
 
   endpoints {
-    lambda = "http://localhost:4566"
-    sqs    = "http://localhost:4566"
+    lambda         = "http://localhost:4566"
+    sqs            = "http://localhost:4566"
+    secretsmanager = "http://localhost:4566"
   }
 }
