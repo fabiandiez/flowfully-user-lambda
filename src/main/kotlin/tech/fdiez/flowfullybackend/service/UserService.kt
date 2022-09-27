@@ -26,6 +26,7 @@ class UserService(private val userRepository: UserRepository) {
 
     private fun updateUser(event: UpdateUserEvent) {
         val user = getUser(event.username)
+
         if (user != null) {
             user.todoistUserId = event.todoistUserId ?: user.todoistUserId
             user.todoistApiToken = event.todoistApiToken ?: user.todoistApiToken
@@ -39,8 +40,16 @@ class UserService(private val userRepository: UserRepository) {
     private fun createUser(event: CreateUserEvent) {
         val user = getUser(event.username)
 
-        if (user != null) {
-            userRepository.save(user)
+        if (user == null) {
+            userRepository.save(
+                UserData(
+                    username = event.username,
+                    password = event.password,
+                    todoistUserId = event.todoistUserId,
+                    todoistApiToken = event.todoistApiToken,
+                    todoistWebhookUrl = event.todoistWebhookUrl
+                )
+            )
         } else {
             logger.error { "User ${event.username} already exists" }
         }

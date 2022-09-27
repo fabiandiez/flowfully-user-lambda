@@ -40,6 +40,8 @@ dependencies {
 
     implementation("io.github.microutils:kotlin-logging-jvm:3.0.0")
 
+    implementation("com.bol:spring-data-mongodb-encrypt:2.8.0")
+
     // TODO: Remove this dependency once spring fixes this
     implementation("org.yaml:snakeyaml:1.32")
 

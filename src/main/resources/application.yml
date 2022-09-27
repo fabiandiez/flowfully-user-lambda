@@ -6,3 +6,9 @@ spring:
     mongodb:
       auto-index-creation: true
       uri: mongodb://localhost:27017/flowfully-db # TODO: Use actual DB URI
+
+mongodb:
+  encrypt:
+    keys:
+      - version: 1
+        key: ${MONGODB_ENCRYPTION_KEY}

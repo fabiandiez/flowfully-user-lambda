@@ -14,6 +14,7 @@ resource "aws_lambda_function" "flowfully_backend" {
   environment {
     variables = {
       SPRING_PROFILES_ACTIVE = "local"
+      MONGODB_ENCRYPTION_KEY = data.aws_secretsmanager_secret_version.mongodb_encryption_key.secret_string
     }
   }
 

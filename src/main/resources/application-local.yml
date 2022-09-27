@@ -2,3 +2,9 @@ spring:
   data:
     mongodb:
       uri: mongodb://local-flowfully_db:27017/flowfully_db
+
+mongodb:
+  encrypt:
+    keys:
+      - version: 1
+        key: ${MONGODB_ENCRYPTION_KEY}

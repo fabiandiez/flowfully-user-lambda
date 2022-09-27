@@ -23,6 +23,7 @@ export INCOMING_QUEUE_URL="${LOCALSTACK_ENDPOINT}/local-flowfully_backend-incomi
 export LAMBDA_FUNCTION_NAME="local-flowfully_backend_lambda"
 export DB_NAME="local-flowfully_db"
 export LAMBDA_DOCKER_NETWORK="flowfully-network"
+export MONGDODB_ENCRYPTION_KEY_SECRET="flowfully-backend/mongodb-encryption-key"
 
 # See https://github.com/hashicorp/terraform-provider-aws/issues/20274
 export GODEBUG=asyncpreemptoff=1
@@ -32,16 +33,18 @@ function start-db() {
 }
 
 function stop-db() {
-  (docker stop $DB_NAME && docker rm $DB_NAME) || true > /dev/null
+  (docker stop $DB_NAME && docker rm $DB_NAME) || true >/dev/null
 }
 
 function start-mocks() {
   start-db
   localstack start --detached
+  sleep 5
+  __setup-secrets
 }
 
 function stop-mocks() {
-  localstack stop > /dev/null || true
+  localstack stop >/dev/null || true
   stop-db
 }
 
@@ -68,12 +71,45 @@ function build-and-deploy() {
 
 function start() {
   start-mocks
-  deploy-app
-  start-app
+  build-and-deploy
 }
 
-function send-message() {
-  __aws sqs send-message --queue-url $INCOMING_QUEUE_URL --message-body "$1"
+function __setup-secrets() {
+  __aws secretsmanager create-secret --name $MONGDODB_ENCRYPTION_KEY_SECRET --secret-string "$(openssl rand -base64 32)"
+}
+
+function __generate-create-message() {
+  echo '{
+        "eventType":"CREATE_USER",
+        "payload": {
+          "username": "'"${1}"'",
+          "password": "123",
+          "todoistApiToken": "123",
+          "todoistWebhookUrl": "http://some-url.com",
+          "todoistUserId": "123456"
+        }
+      }' | jq '.payload = (.payload | tostring)'
+}
+
+function send-create-message() {
+  __aws sqs send-message --queue-url $INCOMING_QUEUE_URL --message-body "$(__generate-create-message $1)"
+}
+
+function __generate-update-message() {
+  echo '{
+        "eventType":"UPDATE_USER",
+        "payload": {
+          "username": "'"${1}"'",
+          "password": "123",
+          "todoistApiToken": "312",
+          "todoistWebhookUrl": "http://some-url2.com",
+          "todoistUserId": "1234567"
+        }
+      }' | jq '.payload = (.payload | tostring)'
+}
+
+function send-update-message() {
+  __aws sqs send-message --queue-url $INCOMING_QUEUE_URL --message-body "$(__generate-update-message $1)"
 }
 
 function lambda-logs() {
