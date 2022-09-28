@@ -2,6 +2,8 @@ package tech.fdiez.flowfullybackend.service
 
 import org.springframework.stereotype.Service
 import mu.KotlinLogging
+import tech.fdiez.flowfullybackend.exception.UsernameAlreadyExists
+import tech.fdiez.flowfullybackend.exception.UsernameNotFoundException
 import tech.fdiez.flowfullybackend.data.UserData
 import tech.fdiez.flowfullybackend.event.incoming.CreateUserEvent
 import tech.fdiez.flowfullybackend.event.incoming.UpdateUserEvent
@@ -26,7 +28,7 @@ class UserService(private val userRepository: UserRepository) {
             user.todoistWebhookUrl = event.todoistWebhookUrl ?: user.todoistWebhookUrl
             userRepository.save(user)
         } else {
-            logger.error { "User ${event.username} not found" }
+            throw UsernameNotFoundException(event.username)
         }
     }
 
@@ -45,7 +47,7 @@ class UserService(private val userRepository: UserRepository) {
                 )
             )
         } else {
-            logger.error { "User ${event.username} already exists" }
+            throw UsernameAlreadyExists(event.username)
         }
     }
 }
