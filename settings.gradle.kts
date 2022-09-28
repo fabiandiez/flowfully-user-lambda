@@ -1,1 +1,1 @@
-rootProject.name = "flowfully-backend"
+rootProject.name = "flowfully-user-lambda"

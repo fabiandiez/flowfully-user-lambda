@@ -21,7 +21,7 @@ popd > /dev/null
 
 pushd "${BUILD_DIR}" > /dev/null
 
-mv ./libs/flowfullyBackendApplication.jar "${ZIP_FOLDER}/lambda.zip"
+mv ./libs/flowfullyUserLambdaApplication.jar "${ZIP_FOLDER}/lambda.zip"
 echo "Created lambda.zip"
 
 popd > /dev/null

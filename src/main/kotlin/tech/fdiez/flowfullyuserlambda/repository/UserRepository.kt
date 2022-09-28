@@ -1,8 +1,8 @@
-package tech.fdiez.flowfullybackend.repository
+package tech.fdiez.flowfullyuserlambda.repository
 
 import org.springframework.data.mongodb.repository.MongoRepository
 import org.springframework.stereotype.Repository
-import tech.fdiez.flowfullybackend.data.UserData
+import tech.fdiez.flowfullyuserlambda.data.UserData
 
 @Repository
 interface UserRepository : MongoRepository<UserData, String> {

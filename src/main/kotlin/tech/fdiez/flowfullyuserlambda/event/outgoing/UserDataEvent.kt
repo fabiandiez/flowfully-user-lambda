@@ -1,6 +1,6 @@
-package tech.fdiez.flowfullybackend.event.outgoing
+package tech.fdiez.flowfullyuserlambda.event.outgoing
 
-import tech.fdiez.flowfullybackend.data.UserData
+import tech.fdiez.flowfullyuserlambda.data.UserData
 
 data class UserDataEvent(
 

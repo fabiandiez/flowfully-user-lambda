@@ -1,10 +1,10 @@
-package tech.fdiez.flowfullybackend
+package tech.fdiez.flowfullyuserlambda
 
 import org.junit.jupiter.api.Test
 import org.springframework.boot.test.context.SpringBootTest
 
 @SpringBootTest
-class FlowfullyBackendApplicationTests {
+class FlowfullyUserLambdaTests {
 
 	@Test
 	fun contextLoads() {

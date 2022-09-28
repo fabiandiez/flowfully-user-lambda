@@ -1,4 +1,4 @@
-package tech.fdiez.flowfullybackend.event.incoming
+package tech.fdiez.flowfullyuserlambda.event.incoming
 
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 

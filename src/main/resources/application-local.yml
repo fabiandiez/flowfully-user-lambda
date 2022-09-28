@@ -1,7 +1,7 @@
 spring:
   data:
     mongodb:
-      uri: mongodb://${MONGODB_HOSTNAME}:27017/flowfully_db
+      uri: mongodb://${MONGODB_HOSTNAME}:27017/flowfully_user_db
 
 mongodb:
   encrypt:

@@ -1,4 +1,4 @@
-package tech.fdiez.flowfullybackend.exception
+package tech.fdiez.flowfullyuserlambda.exception
 
 class UsernameNotFoundException(username: String) : RuntimeException("User $username not found")
 

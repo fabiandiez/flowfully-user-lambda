@@ -1,4 +1,4 @@
-package tech.fdiez.flowfullybackend
+package tech.fdiez.flowfullyuserlambda
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPResponse
@@ -7,14 +7,14 @@ import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
-import tech.fdiez.flowfullybackend.event.incoming.CreateUserEvent
-import tech.fdiez.flowfullybackend.event.incoming.GetUserEvent
-import tech.fdiez.flowfullybackend.event.incoming.UpdateUserEvent
-import tech.fdiez.flowfullybackend.exception.withExceptionHandling
-import tech.fdiez.flowfullybackend.service.UserService
+import tech.fdiez.flowfullyuserlambda.event.incoming.CreateUserEvent
+import tech.fdiez.flowfullyuserlambda.event.incoming.GetUserEvent
+import tech.fdiez.flowfullyuserlambda.event.incoming.UpdateUserEvent
+import tech.fdiez.flowfullyuserlambda.exception.withExceptionHandling
+import tech.fdiez.flowfullyuserlambda.service.UserService
 
 @SpringBootApplication
-class FlowfullyBackendApplication {
+class FlowfullyUserLambda {
 
     private val logger = KotlinLogging.logger {}
 
@@ -67,5 +67,5 @@ private fun buildSuccessfulResponse(body: Any): APIGatewayV2HTTPResponse =
         .build()
 //
 fun main(args: Array<String>) {
-    runApplication<FlowfullyBackendApplication>(*args)
+    runApplication<FlowfullyUserLambda>(*args)
 }

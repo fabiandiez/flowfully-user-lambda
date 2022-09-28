@@ -71,7 +71,7 @@ tasks.withType<Test> {
 
 tasks.withType<Jar> {
     manifest {
-        attributes["Start-Class"] = "tech.fdiez.flowfullybackend.FlowfullyBackendApplication"
+        attributes["Start-Class"] = "tech.fdiez.flowfullyuserlambda.FlowfullyUserLambda"
     }
 }
 

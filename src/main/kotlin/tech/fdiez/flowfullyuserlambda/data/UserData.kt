@@ -1,4 +1,4 @@
-package tech.fdiez.flowfullybackend.data
+package tech.fdiez.flowfullyuserlambda.data
 
 
 import com.bol.secure.Encrypted

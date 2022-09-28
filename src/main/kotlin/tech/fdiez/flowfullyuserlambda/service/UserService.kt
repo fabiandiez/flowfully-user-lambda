@@ -1,14 +1,14 @@
-package tech.fdiez.flowfullybackend.service
+package tech.fdiez.flowfullyuserlambda.service
 
 import org.springframework.stereotype.Service
 import mu.KotlinLogging
-import tech.fdiez.flowfullybackend.exception.UsernameAlreadyExists
-import tech.fdiez.flowfullybackend.exception.UsernameNotFoundException
-import tech.fdiez.flowfullybackend.data.UserData
-import tech.fdiez.flowfullybackend.event.incoming.CreateUserEvent
-import tech.fdiez.flowfullybackend.event.incoming.UpdateUserEvent
-import tech.fdiez.flowfullybackend.event.outgoing.UserDataEvent
-import tech.fdiez.flowfullybackend.repository.UserRepository
+import tech.fdiez.flowfullyuserlambda.exception.UsernameAlreadyExists
+import tech.fdiez.flowfullyuserlambda.exception.UsernameNotFoundException
+import tech.fdiez.flowfullyuserlambda.data.UserData
+import tech.fdiez.flowfullyuserlambda.event.incoming.CreateUserEvent
+import tech.fdiez.flowfullyuserlambda.event.incoming.UpdateUserEvent
+import tech.fdiez.flowfullyuserlambda.event.outgoing.UserDataEvent
+import tech.fdiez.flowfullyuserlambda.repository.UserRepository
 
 @Service
 class UserService(private val userRepository: UserRepository) {

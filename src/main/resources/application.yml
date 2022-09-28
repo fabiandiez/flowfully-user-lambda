@@ -2,7 +2,7 @@ spring:
   data:
     mongodb:
       auto-index-creation: true
-      uri: mongodb://localhost:27017/flowfully-db # TODO: Use actual DB URI
+      uri: mongodb://localhost:27017/flowfully_user_db # TODO: Use actual DB URI
 
 mongodb:
   encrypt:

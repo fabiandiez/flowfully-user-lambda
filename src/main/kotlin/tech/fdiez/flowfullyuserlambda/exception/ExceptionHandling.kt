@@ -1,4 +1,4 @@
-package tech.fdiez.flowfullybackend.exception
+package tech.fdiez.flowfullyuserlambda.exception
 
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPEvent
 import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPResponse
