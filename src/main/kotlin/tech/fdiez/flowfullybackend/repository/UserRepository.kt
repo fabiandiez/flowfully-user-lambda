@@ -7,6 +7,7 @@ import tech.fdiez.flowfullybackend.data.UserData
 @Repository
 interface UserRepository : MongoRepository<UserData, String> {
 
-
     fun findByUsername(username: String): UserData?
+
+    fun existsByUsername(username: String): Boolean
 }
