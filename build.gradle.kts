@@ -97,7 +97,7 @@ tasks.bootRunMainClassName {
 
 
 tasks.withType<ShadowJar> {
-    archiveFileName.set("flowfullyBackendApplication.jar")
+    archiveFileName.set("flowfullyUserLambdaApplication.jar")
 
     dependencies {
         exclude("org.springframework.cloud:spring-cloud-function-web")
