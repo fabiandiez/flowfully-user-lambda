@@ -42,19 +42,19 @@ jobs:
           terraform_version: 1.2.7
 
       - name: Terraform Init
-        working-directory: ./terraform
+        working-directory: ./terraform/remote
         run: terraform init
 
       - name: Terraform Format
-        working-directory: ./terraform
+        working-directory: ./terraform/remote
         run: terraform fmt -check
 
       - name: Terraform Plan
-        working-directory: ./terraform
+        working-directory: ./terraform/remote
         if: github.ref != 'refs/heads/main' && github.event_name == 'push'
         run: terraform plan -input=false
 
       - name: Terraform Apply
-        working-directory: ./terraform
+        working-directory: ./terraform/remote
         if: github.ref == 'refs/heads/main' && github.event_name == 'push'
         run: terraform apply -auto-approve -input=false
