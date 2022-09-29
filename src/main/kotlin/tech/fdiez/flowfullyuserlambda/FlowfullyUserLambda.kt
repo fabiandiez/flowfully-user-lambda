@@ -5,7 +5,6 @@ import com.amazonaws.services.lambda.runtime.events.APIGatewayV2HTTPResponse
 import com.fasterxml.jackson.module.kotlin.jsonMapper
 import mu.KotlinLogging
 import org.springframework.boot.autoconfigure.SpringBootApplication
-import org.springframework.boot.runApplication
 import org.springframework.context.annotation.Bean
 import tech.fdiez.flowfullyuserlambda.event.incoming.CreateUserEvent
 import tech.fdiez.flowfullyuserlambda.event.incoming.GetUserEvent
@@ -65,7 +64,7 @@ private fun buildSuccessfulResponse(body: Any): APIGatewayV2HTTPResponse =
         .withBody(jsonMapper().writeValueAsString(body))
         .withStatusCode(200)
         .build()
-//
+
 fun main(args: Array<String>) {
-    runApplication<FlowfullyUserLambda>(*args)
+//    runApplication<FlowfullyUserLambda>(*args)
 }
