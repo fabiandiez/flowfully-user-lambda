@@ -28,9 +28,9 @@ jobs:
             distribution: "temurin"
             java-version: "11"
             cache: "gradle"
-
-      - name: Setup upterm session
-        uses: lhotari/action-upterm@v1
+#
+#      - name: Setup upterm session
+#        uses: lhotari/action-upterm@v1
 
       - name: Test & Build
         run: ./ci/build.sh
