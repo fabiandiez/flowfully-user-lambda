@@ -13,9 +13,8 @@ resource "aws_lambda_function" "flowfully_user_lambda-function" {
 
   environment {
     variables = {
-      SPRING_PROFILES_ACTIVE = "local"
       MONGODB_ENCRYPTION_KEY = data.aws_secretsmanager_secret_version.flowfully_user_lambda-mongodb_encryption_key.secret_string
-      MONGODB_HOSTNAME       = "local-flowfully_db" // TODO: Use actual hostname in live
+      MONGODB_HOSTNAME       = aws_docdb_cluster.flowfully_user_lambda-db.cluster_identifier
     }
   }
 
