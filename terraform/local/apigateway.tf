@@ -23,7 +23,7 @@ resource "aws_apigatewayv2_stage" "flowfully_user_lambda_api_stage" {
       status                  = "$context.status"
       responseLength          = "$context.responseLength"
       integrationErrorMessage = "$context.integrationErrorMessage"
-    }
+      }
     )
   }
 }
