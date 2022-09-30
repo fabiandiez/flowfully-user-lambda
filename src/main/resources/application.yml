@@ -2,7 +2,7 @@ spring:
   data:
     mongodb:
       auto-index-creation: true
-      uri: mongodb://localhost:27017/flowfully_user_lambda_db # TODO: Use actual DB URI
+      uri: mongodb://localhost:27017/flowfully-user-lambda-db # TODO: Use actual DB URI
 
 mongodb:
   encrypt:
