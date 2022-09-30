@@ -1,5 +1,5 @@
 resource "aws_docdb_cluster" "flowfully_user_lambda-db" {
-  cluster_identifier      = "flowfully_user_lambda-db"
+  cluster_identifier      = "flowfully_user_lambda_db"
   engine                  = "docdb"
   master_username         = "foo"              // todo: use secrets manager
   master_password         = "mustbeeightchars" // todo: use secrets manager
